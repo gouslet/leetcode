@@ -4,7 +4,8 @@
 进阶：你能尝试使用一趟扫描实现吗？
 
 ## 示例
-### 示例 1：![](assets/19-示例1.jpg)
+### 示例 1：
+![](assets/19-示例1.jpg)
 
 输入：head = [1,2,3,4,5], n = 2  
 输出：[1,2,3,5]  
@@ -65,4 +66,4 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	return head
 }
 ```
-具体见[](removeNthFromEnd.go)
+具体见[removeNthFromEnd.go](removeNthFromEnd.go)
