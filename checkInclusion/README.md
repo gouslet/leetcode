@@ -30,7 +30,8 @@
 - 增大窗口的右端high，当`freq2[s2[high] - 'a'] + 1 > freq1[s2[high] - 'a']`时，将low向右移动至`s[high]`首次出现的位置，并将沿途的字母（不包括`s[high]`）出现的频率清零
 - 当high - low == s1的长度时，返回true
 - 若high增长至s2右端时，若high - low == s1的长度，返回 true
-- 否则返回false
+- 否则返回false  
+
 **代码**：
 ```go
 func checkInclusion(s1 string, s2 string) bool {
