@@ -35,4 +35,51 @@
 ## 解答
 ### 方法一
 **解释**：  
+可采用滑动窗口法，
+- 取窗口的左右端点分别为low和high，初始时low和high均为0，
+- 用map[string]int类型的变量exists记录当前窗口中每个位置上的字符在整个字符串中的位置之后的位置（从1开始），
+- 用maxLen记录最长无重复子串的长度值，初始为0
+- 在high向右端滑行的过程中，
+  - 如果high位置上的字符不在map中，则high继续向右移动，
+  - 如果其存在于map中，则将maxLen值设置为当前的high-low值（窗口大小）与当前maxLen值中较大者，并将左端点移动至目前s[high]的值第一次出现的位置后面（在本程序中为exists[s[high]]）
+  - 如果high到达字符串末端，则将maxLen值设置为当前的high-low值（窗口大小）与当前maxLen值中较大者
+
+在整个过程中，low-high之间的字符无重复
+
 **代码**：
+```go
+func lengthOfLongestSubstring(s string) int {
+	if s == "" {
+		return 0
+	}
+	l := len(s)
+	if l == 1 {
+		return 1
+	}
+	maxLen := 0
+
+	exists := make(map[byte]int)
+	low, high := 0, 0
+	for high < l {
+		if i := exists[s[high]]; i != 0 {
+			if diff := high - low; diff > maxLen {
+				maxLen = diff
+			}
+
+			for low < i {
+				exists[s[low]] = 0
+				low++
+			}
+
+		} else if high == l-1 {
+			if diff := high - low + 1; diff > maxLen {
+				maxLen = diff
+			}
+		}
+		exists[s[high]] = high + 1
+		high++
+	}
+	return maxLen
+}
+```
+具体见[lengthOfLongestSubstring](lengthOfLongestSubstring.go)
