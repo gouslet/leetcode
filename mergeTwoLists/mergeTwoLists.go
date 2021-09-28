@@ -36,6 +36,7 @@ func mergeTwoLists1(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 }
 
+// 迭代
 func mergeTwoLists2(l1 *ListNode, l2 *ListNode) *ListNode {
 	if l1 == nil {
 		if l2 == nil {
