@@ -15,21 +15,14 @@ func updateMatrix(mat [][]int) [][]int {
 		return nil
 	}
 
-	// res := [][]int{}
-
-	// for k := 0; k < r; k++ {
-	// 	res = append(res, make([]int, c))
-	// }
-
 	for i := 0; i < r; i++ {
 		for j := 0; j < c; j++ {
 			if mat[i][j] != 0 {
-				// visited := [][]bool{}
-				// for i := 0; i < r; i++ {
-				// 	visited = append(visited, make([]bool, c))
-				// }
-				// mat[i][j] = dfs(mat, i, j, visited)
-				mat[i][j] = dfs(mat, i, j)
+				visited := [][]bool{}
+				for i := 0; i < r; i++ {
+					visited = append(visited, make([]bool, c))
+				}
+				mat[i][j] = dfs(mat, i, j, visited)
 			}
 		}
 	}
@@ -37,62 +30,32 @@ func updateMatrix(mat [][]int) [][]int {
 	return mat
 }
 
-// func dfs(mat [][]int, sr int, sc int, visited [][]bool) int {
-// 	cells := [][]int{{sr, sc}}
-// 	for len(cells) != 0 {
-// 		v := cells[0]
-// 		cells = cells[1:]
-// 		adjs := adj(mat, v[0], v[1])
-// 		for _, a := range adjs {
-// 			if len(a) == 0 {
-// 				return 0
-// 			}
-// 			if !visited[a[0]][a[1]] {
-// 				visited[a[0]][a[1]] = true
-// 				cells = append(cells, []int{a[0], a[1]})
-// 				if mat[a[0]][a[1]] == 0 {
-// 					if a[0] > sr {
-// 						if a[1] > sc {
-// 							return a[0] - sr + a[1] - sc
-// 						} else {
-// 							return a[0] - sr + sc - a[1]
-// 						}
-// 					} else {
-// 						if a[1] > sc {
-// 							return sr - a[0] + a[1] - sc
-// 						} else {
-// 							return sr - a[0] + sc - a[1]
-// 						}
-// 					}
-// 				}
-// 			}
-// 		}
-// 	}
-// 	return -1
-// }
-
-func dfs(mat [][]int, sr int, sc int) int {
+func dfs(mat [][]int, sr int, sc int, visited [][]bool) int {
 	cells := [][]int{{sr, sc}}
 	for len(cells) != 0 {
 		v := cells[0]
 		cells = cells[1:]
-		for _, a := range adj(mat, v[0], v[1]) {
+		adjs := adj(mat, v[0], v[1])
+		for _, a := range adjs {
 			if len(a) == 0 {
 				return 0
 			}
-			cells = append(cells, []int{a[0], a[1]})
-			if mat[a[0]][a[1]] == 0 {
-				if a[0] > sr {
-					if a[1] > sc {
-						return a[0] - sr + a[1] - sc
+			if !visited[a[0]][a[1]] {
+				visited[a[0]][a[1]] = true
+				cells = append(cells, []int{a[0], a[1]})
+				if mat[a[0]][a[1]] == 0 {
+					if a[0] > sr {
+						if a[1] > sc {
+							return a[0] - sr + a[1] - sc
+						} else {
+							return a[0] - sr + sc - a[1]
+						}
 					} else {
-						return a[0] - sr + sc - a[1]
-					}
-				} else {
-					if a[1] > sc {
-						return sr - a[0] + a[1] - sc
-					} else {
-						return sr - a[0] + sc - a[1]
+						if a[1] > sc {
+							return sr - a[0] + a[1] - sc
+						} else {
+							return sr - a[0] + sc - a[1]
+						}
 					}
 				}
 			}
@@ -101,6 +64,7 @@ func dfs(mat [][]int, sr int, sc int) int {
 	return -1
 }
 
+// adj 返回mat矩阵中点(sr,sc)的相邻点的坐标
 func adj(mat [][]int, sr, sc int) [][]int {
 	res := [][]int{}
 	lmax := len(mat) - 1
@@ -111,7 +75,8 @@ func adj(mat [][]int, sr, sc int) [][]int {
 	if cmax < 0 {
 		return res
 	}
-	if lmax == 0 {
+
+	if lmax == 0 {	// 1 × n 矩阵
 		if cmax == 0 {
 			return res
 		} else {
@@ -125,7 +90,7 @@ func adj(mat [][]int, sr, sc int) [][]int {
 		}
 	}
 
-	if cmax == 0 {
+	if cmax == 0 {	// m × 1 矩阵
 		if lmax == 0 {
 			return res
 		} else {
@@ -139,28 +104,29 @@ func adj(mat [][]int, sr, sc int) [][]int {
 		}
 	}
 
-	if sr == 0 {
-		if sc == 0 {
+	// m × n 矩阵
+	if sr == 0 {		
+		if sc == 0 {	// 点(0,0)
 			res = append(res, []int{0, 1}, []int{1, 0})
-		} else if sc == cmax {
+		} else if sc == cmax {	// 点(0,cmax)
 			res = append(res, []int{0, cmax - 1}, []int{1, cmax})
-		} else {
+		} else {	// 点(0,?)
 			res = append(res, []int{0, sc - 1}, []int{0, sc + 1}, []int{1, sc})
 		}
-	} else if sr == lmax {
-		if sc == 0 {
+	} else if sr == lmax {	
+		if sc == 0 {	// 点(0,lmax)
 			res = append(res, []int{lmax, 1}, []int{lmax - 1, 0})
-		} else if sc == cmax {
+		} else if sc == cmax {	// 点(lmax,cmax)
 			res = append(res, []int{lmax, cmax - 1}, []int{lmax - 1, cmax})
-		} else {
+		} else {	// 点(lmax,?)
 			res = append(res, []int{lmax, sc - 1}, []int{lmax, sc + 1}, []int{lmax - 1, sc})
 		}
 	} else {
-		if sc == 0 {
+		if sc == 0 {	// 点(?,0)
 			res = append(res, []int{sr, 1}, []int{sr - 1, 0}, []int{sr + 1, 0})
-		} else if sc == cmax {
+		} else if sc == cmax {	// 点(?,cmax)
 			res = append(res, []int{sr, cmax - 1}, []int{sr - 1, cmax}, []int{sr + 1, cmax})
-		} else {
+		} else {	// 点(?,?)
 			res = append(res, []int{sr, sc - 1}, []int{sr, sc + 1}, []int{sr - 1, sc}, []int{sr + 1, sc})
 		}
 	}
@@ -168,6 +134,7 @@ func adj(mat [][]int, sr, sc int) [][]int {
 	return res
 }
 
+// printMatrix 输出矩阵
 func printMatrix(matrix [][]int) {
 	for _, line := range matrix {
 		fmt.Printf("%v\n", line)
@@ -182,6 +149,8 @@ func main() {
 		{[][]int{}, [][]int{}},
 		{[][]int{{1, 0}}, [][]int{{1, 0}}},
 		{[][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}, [][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}},
+		[[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[0,0,0]]
+		{[][]int{{1,1,1}, {1,1,1}, {1,1,1},{0, 0, 0}}, [][]int{{0, 0, 0}, {0, 1, 0}, {0, 0, 0}}},
 		// {[][]int{{1}}, 0, 0, 2},
 		// {[][]int{{0, 1}}, 0, 1, 2},
 		// {[][]int{{0}, {1}}, [][]int{{0}, {2}}, 1, 0, 2},

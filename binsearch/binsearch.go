@@ -1,3 +1,17 @@
+/*
+ * File: \binsearch\binsearch.go                                               *
+ * Project: leetcode                                                           *
+ * Created At: Thursday, 2021/10/7 , 22:13:21                                  *
+ * Author: elchn                                                               *
+ * -----                                                                       *
+ * Last Modified: Monday, 2022/03/7 , 13:19:40                                 *
+ * Modified By: elchn                                                          *
+ * -----                                                                       *
+ * HISTORY:                                                                    *
+ * Date      	By	Comments                                                   *
+ * ----------	---	---------------------------------------------------------  *
+ */
+
 package main
 
 import "fmt"
@@ -62,11 +76,34 @@ func search3(nums []int, target int) int {
 	}
 }
 
+func search4(nums []int16, target int16) int16 {
+	l := len(nums)
+	low, high := 0, l-1
+	if l == 0 {
+		return -1
+	}
+
+	for low < high {
+		mid := low + (high-low)>>1
+		if target > nums[mid] {
+			low = mid + 1
+		} else {
+			high = mid
+		}
+	}
+	if target == nums[low] {
+		return int16(low)
+	} else {
+		return -1
+	}
+}
+
 func main() {
 	funcs := []func(numms []int, target int) int{
 		// search1,
 		// search2,
-		search3,
+		// search3,
+		// search4,
 	}
 
 	tests := []struct {

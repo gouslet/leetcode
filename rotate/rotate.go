@@ -1,3 +1,17 @@
+/*
+ * File: \rotate\main.go                                                       *
+ * Project: leetcode                                                           *
+ * Created At: Saturday, 2021/09/25 , 02:13:14                                 *
+ * Author: elchn                                                               *
+ * -----                                                                       *
+ * Last Modified: Tuesday, 2022/03/8 , 16:45:41                                *
+ * Modified By: elchn                                                          *
+ * -----                                                                       *
+ * HISTORY:                                                                    *
+ * Date      	By	Comments                                                   *
+ * ----------	---	---------------------------------------------------------  *
+ */
+
 package main
 
 import "fmt"
@@ -24,12 +38,13 @@ func rotate2(nums []int, k int) {
 	extra := make([]int, k)
 	// fmt.Printf("%v\n", extra)
 	k %= l
+	fmt.Printf("%v\n", nums[l-k:l])
 	copy(extra, nums[l-k:l])
-	// fmt.Printf("%v\n", nums)
+	fmt.Printf("%v\n", nums)
 	copy(nums[k:l], nums)
-	// fmt.Printf("%v\n", nums)
+	fmt.Printf("%v\n", nums)
 	copy(nums[0:k], extra)
-	// fmt.Printf("%v\n", nums)
+	fmt.Printf("%v\n", nums)
 }
 
 // rotate3 时间复杂度$O(n)$ 空间复杂度$O(n)$
@@ -44,12 +59,10 @@ func rotate3(nums []int, k int) {
 		nums[i], nums[i-k] = nums[i-k], nums[i]
 		n++
 	}
-	if l-k > 0 {
-		if n < k {
-			rotate3(nums[:l-n], k-n)
-		} else {
-			rotate3(nums[:l-k], k)
-		}
+	if n < k {
+		rotate3(nums[:l-n], k-n)
+	} else {
+		rotate3(nums[:l-k], k)
 	}
 	// fmt.Printf("%v\n", nums)
 }
@@ -57,7 +70,7 @@ func rotate3(nums []int, k int) {
 // rotate4 时间复杂度$O(n)$ 空间复杂度$O(1)$
 // 拆分成三步：
 // 1.整体翻转数组 [7，6，5，4，3，2，1]
-// 2.以K索引为界限 翻转前半段 [5，6，7，4，3，2，1]
+// 2.以k索引为界限 翻转前半段 [5，6，7，4，3，2，1]
 // 3.再翻转后半段 [5，6，7，1，2，3，4]
 func rotate4(nums []int, k int) {
 	l := len(nums)
