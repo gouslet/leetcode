@@ -1,3 +1,17 @@
+/*
+ * File: \moveZeroes\main.go                                                   *
+ * Project: leetcode                                                           *
+ * Created At: Saturday, 2021/09/25 , 02:13:14                                 *
+ * Author: elchn                                                               *
+ * -----                                                                       *
+ * Last Modified: Thursday, 2022/03/10 , 00:28:49                              *
+ * Modified By: elchn                                                          *
+ * -----                                                                       *
+ * HISTORY:                                                                    *
+ * Date      	By	Comments                                                   *
+ * ----------	---	---------------------------------------------------------  *
+ */
+
 package main
 
 import (
@@ -41,28 +55,32 @@ func moveZeroes2(nums []int) {
 
 func main() {
 	funcs := []func(nums []int){
-		moveZeroes1,
+		// moveZeroes1,
 		moveZeroes2,
 	}
 	tests := []struct {
 		nums []int
 		res  []int
 	}{
-		// {
-		// 	[]int{1, 1, 0, 1, 0},
-		// 	[]int{1, 1, 1, 0, 0},
-		// },
-		// {
-		// 	[]int{},
-		// 	[]int{},
-		// },
-		// {
-		// 	[]int{0, 1, 0, 1, 0},
-		// 	[]int{1, 1, 0, 0, 0},
-		// },
+		{
+			[]int{1, 1, 0, 1, 0},
+			[]int{1, 1, 1, 0, 0},
+		},
+		{
+			[]int{},
+			[]int{},
+		},
+		{
+			[]int{0, 1, 0, 1, 0},
+			[]int{1, 1, 0, 0, 0},
+		},
 		{
 			[]int{0, 1, 0, 3, 12},
 			[]int{1, 3, 12, 0, 0},
+		},
+		{
+			[]int{1, 0, 2, 0, 0, 3, 0, 0, 0, 4},
+			[]int{1, 2, 3, 4, 0, 0, 0, 0, 0, 0},
 		},
 	}
 	for i, l := 0, len(funcs); i < l; i++ {

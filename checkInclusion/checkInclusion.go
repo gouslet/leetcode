@@ -1,3 +1,17 @@
+/*
+ * File: \checkInclusion\checkInclusion.go                                     *
+ * Project: leetcode                                                           *
+ * Created At: Tuesday, 2021/09/28 , 14:30:15                                  *
+ * Author: elchn                                                               *
+ * -----                                                                       *
+ * Last Modified: Monday, 2022/03/14 , 13:53:19                                *
+ * Modified By: elchn                                                          *
+ * -----                                                                       *
+ * HISTORY:                                                                    *
+ * Date      	By	Comments                                                   *
+ * ----------	---	---------------------------------------------------------  *
+ */
+
 package main
 
 import "fmt"
@@ -46,43 +60,68 @@ import "fmt"
 // 	return false
 // }
 
+// func checkInclusion(s1 string, s2 string) bool {
+// 	if s1 == "" || s2 == "nil" {
+// 		return false
+// 	}
+
+// 	freq1 := [26]int{0}
+// 	for _, c := range s1 {
+// 		freq1[byte(c)-'a']++
+// 	}
+// 	freq2 := [26]int{0}
+
+// 	low, high, l1, l2 := 0, 0, len(s1), len(s2)
+// 	for high < l2 {
+// 		if high-low == l1 {
+// 			return true
+// 		}
+// 		if t := freq2[s2[high]-'a'] + 1; t > freq1[s2[high]-'a'] {
+// 			i := low
+// 			for s2[i] != s2[high] {
+// 				freq2[s2[i]-'a']--
+// 				i++
+// 			}
+// 			i++
+// 			low = i
+// 		} else {
+// 			freq2[s2[high]-'a']++
+// 		}
+
+// 		high++
+// 	}
+
+// 	if high-low == l1 {
+// 		return true
+// 	}
+
+// 	return false
+// }
+
 func checkInclusion(s1 string, s2 string) bool {
-	if s1 == "" || s2 == "nil" {
-		return false
-	}
+    if len(s2) < len(s1) {                                
+        return false
+    }
 
-	freq1 := [26]int{0}
-	for _, c := range s1 {
-		freq1[byte(c)-'a']++
-	}
-	freq2 := [26]int{0}
+    var cnt1, cnt2 [26]int
 
-	low, high, l1, l2 := 0, 0, len(s1), len(s2)
-	for high < l2 {
-		if high-low == l1 {
-			return true
-		}
-		if t := freq2[s2[high]-'a'] + 1; t > freq1[s2[high]-'a'] {
-			i := low
-			for s2[i] != s2[high] {
-				freq2[s2[i]-'a']--
-				i++
-			}
-			i++
-			low = i
+    for i, c := range s1 {
+        cnt1[byte(c) - 'a']++
+        cnt2[s2[i] - 'a']++
+    }
+    if cnt1 == cnt2 {
+        return true
+    }
 
-		} else {
-			freq2[s2[high]-'a']++
-		}
+    for i := len(s1); i < len(s2); i++ {
+        cnt2[s2[i] - 'a']++
+        cnt2[s2[i - len(s1)] - 'a']--
+        if cnt1 == cnt2 {
+            return true
+        }
+    }
 
-		high++
-	}
-
-	if high-low == l1 {
-		return true
-	}
-
-	return false
+    return false
 }
 
 func main() {
@@ -95,6 +134,7 @@ func main() {
 		{"adc", "dcda", true},
 		{"ab", "ab", true},
 		{"hello", "ooolleoooleh", false},
+		{"xy", "abcxydefacb", true},
 	}
 
 	for _, test := range tests {

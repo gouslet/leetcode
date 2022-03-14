@@ -1,3 +1,17 @@
+/*
+ * File: \mergeTrees\mergeTrees.go                                             *
+ * Project: leetcode                                                           *
+ * Created At: Tuesday, 2021/09/28 , 23:52:56                                  *
+ * Author: elchn                                                               *
+ * -----                                                                       *
+ * Last Modified: Monday, 2022/03/14 , 23:22:21                                *
+ * Modified By: elchn                                                          *
+ * -----                                                                       *
+ * HISTORY:                                                                    *
+ * Date      	By	Comments                                                   *
+ * ----------	---	---------------------------------------------------------  *
+ */
+
 package main
 
 /**

@@ -1,3 +1,17 @@
+/*
+ * File: \floodFill\floodFill.go                                               *
+ * Project: leetcode                                                           *
+ * Created At: Wednesday, 2021/09/29 , 23:44:55                                *
+ * Author: elchn                                                               *
+ * -----                                                                       *
+ * Last Modified: Monday, 2022/03/14 , 18:50:44                                *
+ * Modified By: elchn                                                          *
+ * -----                                                                       *
+ * HISTORY:                                                                    *
+ * Date      	By	Comments                                                   *
+ * ----------	---	---------------------------------------------------------  *
+ */
+
 package main
 
 import (
@@ -20,28 +34,71 @@ func floodFill(image [][]int, sr int, sc int, newColor int) [][]int {
 	for i := 0; i < l; i++ {
 		flag = append(flag, make([]bool, c))
 	}
-	image = dfs(image, sr, sc, flag, color, newColor)
-
-	return image
-}
-
-func dfs(image [][]int, sr int, sc int, flag [][]bool, color, newColor int) [][]int {
-	for _, a := range adj(image, sr, sc) {
-		if len(a) == 0 {
-			return image
+	
+    var dfs func (image [][]int, sr int, sc int, flag [][]bool, color, newColor int) [][]int
+	dfs = func (image [][]int, sr int, sc int, flag [][]bool, color, newColor int) [][]int {
+    
+		for _, a := range adj(image, sr, sc) {
+			if len(a) == 0 {
+				return image
+			}
+			if !flag[a[0]][a[1]] && image[a[0]][a[1]] == color {
+				image[a[0]][a[1]] = newColor
+				flag[a[0]][a[1]] = true
+				image = dfs(image, a[0], a[1], flag, color, newColor)
+			}
 		}
-		if !flag[a[0]][a[1]] && image[a[0]][a[1]] == color {
-			image[a[0]][a[1]] = newColor
-			flag[a[0]][a[1]] = true
-			image = dfs(image, a[0], a[1], flag, color, newColor)
-		}
+		flag[sr][sc] = true
+		image[sr][sc] = newColor
+
+		return image
 	}
-	flag[sr][sc] = true
-	image[sr][sc] = newColor
+    image = dfs(image, sr, sc, flag, color, newColor)
+
 
 	return image
 }
 
+// floodFill2 DFS方式
+func floodFill2(image [][]int, sr int, sc int, newColor int)  [][]int {
+	l := len(image)
+	
+	if l==0 || len(image[0])==0 {
+		return image
+	}
+
+	color := image[sr][sc]
+	flag := [][]bool{}
+	for i := 0; i < l; i++ {
+		flag = append(flag, make([]bool, len(image[0])))
+	}
+	
+    var dfs func (image [][]int, sr int, sc int, flag [][]bool, color, newColor int) 
+	dfs = func (image [][]int, sr int, sc int, flag [][]bool, color, newColor int)  {
+    
+		flag[sr][sc] = true
+		image[sr][sc] = newColor
+		
+		for _, a := range adj(image, sr, sc) {
+			if len(a) == 0 {
+				return
+			}
+			if !flag[a[0]][a[1]] && image[a[0]][a[1]] == color {
+				image[a[0]][a[1]] = newColor
+				flag[a[0]][a[1]] = true
+				dfs(image, a[0], a[1], flag, color, newColor)
+			}
+		}
+
+
+		return
+	}
+    dfs(image, sr, sc, flag, color, newColor)
+
+	return image
+}
+
+// adj 返回(sr,sc)点上下左右四个方向上的邻接点坐标
 func adj(image [][]int, sr, sc int) [][]int {
 	res := [][]int{}
 	lmax := len(image) - 1
@@ -107,7 +164,7 @@ func adj(image [][]int, sr, sc int) [][]int {
 	}
 
 	return res
-}
+}	
 
 func main() {
 	fmt.Println("--------------------adj begin---------------------")

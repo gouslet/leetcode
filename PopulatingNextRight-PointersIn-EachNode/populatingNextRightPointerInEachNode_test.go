@@ -1,3 +1,19 @@
+/*
+ * File: \PopulatingNextRight-PointersIn-EachNode\populatingNextRightPointerInEachNode_test.go *
+ * Project: leetcode                                                           *
+ * Created At: Friday, 2021/10/15 , 22:27:55                                   *
+ * Author: elchn                                                               *
+ * -----                                                                       *
+ * Last Modified: Monday, 2022/03/14 , 23:28:20                                *
+ * Modified By: elchn                                                          *
+ * -----                                                                       *
+ * HISTORY:                                                                    *
+ * Date      	By	Comments                                                   *
+ * ----------	---	---------------------------------------------------------  *
+ */
+
+
+
 package main
 
 import (
@@ -18,7 +34,7 @@ func TestPopulating_Next_Right_Pointers_in_Each_Node(t *testing.T) {
 	for _, test := range tests {
 		tree := NewTreeFrom(test.eles)
 		tree = populating_Next_Right_Pointers_in_Each_Node(tree)
-		fmt.Printf("populating_Next_Right_Pointers_in_Each_Node(%v) = %v: ", test.eles, tree)
+		t.Logf("populating_Next_Right_Pointers_in_Each_Node(%v) = %v: ", test.eles, tree)
 		got := fmt.Sprintf("%v", tree)
 		want := fmt.Sprintf("%v", test.res)
 		if got != want {

@@ -4,7 +4,7 @@
  * Created At: Tuesday, 2022/03/8 , 12:38:28                                   *
  * Author: elchn                                                               *
  * -----                                                                       *
- * Last Modified: Tuesday, 2022/03/8 , 16:48:59                                *
+ * Last Modified: Tuesday, 2022/03/8 , 17:16:56                                *
  * Modified By: elchn                                                          *
  * -----                                                                       *
  * HISTORY:                                                                    *
@@ -32,6 +32,7 @@ func TestRotate(t *testing.T) {
 				"rotate3": rotate3,
 				"rotate4": rotate4,
 				"rotate5": rotate5,
+				"rotate6": rotate6,
 			},
 			[][]int{
 				{},

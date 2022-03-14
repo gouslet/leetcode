@@ -4,7 +4,7 @@
  * Created At: Saturday, 2021/09/25 , 02:13:14                                 *
  * Author: elchn                                                               *
  * -----                                                                       *
- * Last Modified: Tuesday, 2022/03/8 , 16:45:41                                *
+ * Last Modified: Tuesday, 2022/03/8 , 17:18:28                                *
  * Modified By: elchn                                                          *
  * -----                                                                       *
  * HISTORY:                                                                    *
@@ -106,24 +106,42 @@ func rotate5(nums []int, k int) {
 	k %= l
 	// fmt.Printf("%v\n", nums)
 	for start, count := 0, 0; count < l; start++ {
-		// fmt.Printf("count = %d\n", count)
-		cur := start
 
-		pre := nums[cur]
-		next := (cur + k) % l
-		temp := nums[next]
-		nums[next] = pre
-		pre = temp
-		cur = next
-		count++
-		for start != cur {
-			next = (cur + k) % l
-			temp = nums[next]
-			nums[next] = pre
-			pre = temp
-			cur = next
+		pre, cur := nums[start], start
+
+		for ok := true; ok; ok = start != cur {
+			next := (cur + k) % l
+			pre, cur, nums[next] = nums[next], next, pre
 			count++
 		}
+	}
+}
+
+// rotate6 时间复杂度$O(n)$ 空间复杂度$O(1)$
+// 将每一次替换形成一个闭环
+func rotate6(nums []int, k int) {
+	l := len(nums)
+	if k <= 0 || l == 0 {
+		return
+	}
+	k %= l
+
+	gcd := func(a, b int) int {
+		for a != 0 {
+			a, b = b%a, a
+		}
+		return b
+	}
+
+	// fmt.Printf("%v\n", nums)
+	for start, count := 0, gcd(k, l); start < count; start++ {
+
+		pre, cur := nums[start], start
+		for ok := true; ok; ok = cur != start {
+			next := (cur + k) % l
+			nums[next], pre, cur = pre, nums[next], next
+		}
+
 	}
 }
 
