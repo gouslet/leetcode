@@ -19,7 +19,6 @@
  
 
 ## 提示：
-
 - 链表中节点的数目范围是 [0, 5000]
 - -5000 <= Node.val <= 5000
  
@@ -59,11 +58,7 @@ func reverseList1(head *ListNode) *ListNode {
 **代码**
 ```go
 func reverseList2(head *ListNode) *ListNode {
-	if head == nil {
-		return nil
-	}
-
-	if head.Next == nil {
+	if head == nil || head.Next == nil {
 		return head
 	}
 
@@ -78,5 +73,5 @@ func reverseList2(head *ListNode) *ListNode {
 	head.Next = nil
 
 	return left
-}
+} 
 ```

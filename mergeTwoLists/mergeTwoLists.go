@@ -1,3 +1,17 @@
+/*
+ * File: \mergeTwoLists\mergeTwoLists.go                                       *
+ * Project: leetcode                                                           *
+ * Created At: Tuesday, 2021/09/28 , 14:34:33                                  *
+ * Author: elchn                                                               *
+ * -----                                                                       *
+ * Last Modified: Thursday, 2022/03/17 , 13:16:11                              *
+ * Modified By: elchn                                                          *
+ * -----                                                                       *
+ * HISTORY:                                                                    *
+ * Date      	By	Comments                                                   *
+ * ----------	---	---------------------------------------------------------  *
+ */
+
 package main
 
 import (
@@ -54,11 +68,11 @@ func mergeTwoLists2(l1 *ListNode, l2 *ListNode) *ListNode {
 	if l1.Val < l2.Val {
 		head = l1
 		l1 = head.Next
-		head.Next = nil
+		// head.Next = nil
 	} else {
 		head = l2
 		l2 = head.Next
-		head.Next = nil
+		// head.Next = nil
 	}
 	cur := head
 	for l1 != nil {
@@ -70,12 +84,12 @@ func mergeTwoLists2(l1 *ListNode, l2 *ListNode) *ListNode {
 			cur.Next = l2
 			cur = cur.Next
 			l2 = l2.Next
-			cur.Next = nil
+			// cur.Next = nil
 		} else {
 			cur.Next = l1
 			cur = cur.Next
 			l1 = l1.Next
-			cur.Next = nil
+			// cur.Next = nil
 		}
 	}
 

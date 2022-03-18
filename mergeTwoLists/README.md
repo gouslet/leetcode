@@ -33,15 +33,9 @@
 // 递归
 func mergeTwoLists1(l1 *ListNode, l2 *ListNode) *ListNode {
 	if l1 == nil {
-		if l2 == nil {
-			return nil
-		} else {
-			return l2
-		}
-	} else {
-		if l2 == nil {
-			return l1
-		}
+		return l2
+	} else if l2 == nil {
+		return l1
 	}
 	if l1.Val > l2.Val {
 		l2.Next = mergeTwoLists1(l1, l2.Next)
@@ -60,15 +54,9 @@ func mergeTwoLists1(l1 *ListNode, l2 *ListNode) *ListNode {
 // 迭代
 func mergeTwoLists2(l1 *ListNode, l2 *ListNode) *ListNode {
 	if l1 == nil {
-		if l2 == nil {
-			return nil
-		} else {
-			return l2
-		}
-	} else {
-		if l2 == nil {
-			return l1
-		}
+		return l2
+	} else if l2 == nil {
+		return l1
 	}
 	var head *ListNode
 

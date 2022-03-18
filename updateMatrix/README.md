@@ -21,6 +21,6 @@
 - n == mat[i].length
 - 1 <= m, n <= 104
 - 1 <= m * n <= 104
-- mat[i][j] is either 0 or 1.
+- mat[i][j] 为0 或 1
 - mat 中至少有一个 0 
   
