@@ -4,7 +4,7 @@
  * Created At: Wednesday, 2022/03/16 , 11:42:17                                *
  * Author: elchn                                                               *
  * -----                                                                       *
- * Last Modified: Thursday, 2022/03/17 , 01:09:00                              *
+ * Last Modified: Saturday, 2022/03/19 , 17:25:56                              *
  * Modified By: elchn                                                          *
  * -----                                                                       *
  * HISTORY:                                                                    *
@@ -176,7 +176,7 @@ func TestOrangeRotting(t *testing.T) {
 		// 	}
 		// }
 		var ori_grid [][]int = make([][]int, len(test.grid))
-		for i, _ := range ori_grid {
+		for i := range ori_grid {
 			ori_grid[i] = make([]int, len(test.grid[0]))
 			copy(ori_grid[i], test.grid[i])
 		}
@@ -347,7 +347,7 @@ func TestOrangeRotting2(t *testing.T) {
 		// 	}
 		// }
 		var ori_grid [][]int = make([][]int, len(test.grid))
-		for i, _ := range ori_grid {
+		for i := range ori_grid {
 			ori_grid[i] = make([]int, len(test.grid[0]))
 			copy(ori_grid[i], test.grid[i])
 		}

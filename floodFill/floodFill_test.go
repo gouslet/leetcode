@@ -4,7 +4,7 @@
  * Created At: Monday, 2021/10/11 , 18:23:48                                   *
  * Author: elchn                                                               *
  * -----                                                                       *
- * Last Modified: Tuesday, 2022/03/15 , 13:21:01                               *
+ * Last Modified: Saturday, 2022/03/19 , 17:25:56                              *
  * Modified By: elchn                                                          *
  * -----                                                                       *
  * HISTORY:                                                                    *
@@ -76,7 +76,7 @@ func TestFloodFill1(t *testing.T) {
 			}
 		}
 		var ori_image [][]int = make([][]int, len(test.image))
-		for i, _ := range ori_image {
+		for i := range ori_image {
 			ori_image[i] = make([]int, len(test.image[0]))
 			copy(ori_image[i], test.image[i])
 		}
