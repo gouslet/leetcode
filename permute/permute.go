@@ -74,7 +74,7 @@ func permute2(nums []int) [][]int {
 	return res
 }
 
-// permute3 回溯法
+// permute3 回溯法 优化
 func permute3(nums []int) [][]int {
 	if nums == nil {
 		return nil
